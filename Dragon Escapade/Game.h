@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-#include <string>
 #include <SDL.h>
 #include "State.h"
+#include <string>
 
 class Game {
 
@@ -34,6 +34,8 @@ public:
 	int getHeight() const { return height; }
 	SDL_Window *getWindow() const { return window; }
 	SDL_Renderer *getRenderer() const { return renderer; }
+	State getState() { return currentState; }
+
 };
 
 #endif

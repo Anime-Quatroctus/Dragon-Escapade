@@ -1,19 +1,20 @@
 #ifndef BUTTON_H
 #define BUTTON_H
-#include "Game.h"
+#include <SDL.h>
+#include "Input.h"
 
 class Button {
 
 	SDL_Rect destRect;
-	void *onPress;
+	void (*onPress)(void *game);
 
 public:
-	Button(int x, int y, int width, int height, void *onPress);
-	Button(SDL_Rect destRect, void *onPress);
+	Button(int x, int y, int width, int height, void (*onPress)(void *game));
+	Button(SDL_Rect destRect, void(*onPress)(void *game));
 
-	virtual void render(Game *game) {}
-
-	void checkPress(Game *game);
+	virtual void press(void *game) { onPress(game); }
+	virtual void render(SDL_Renderer *renderer) {}
+	bool checkPress(Mouse mouse);
 
 };
 

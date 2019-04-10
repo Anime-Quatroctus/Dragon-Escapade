@@ -4,7 +4,7 @@
 
 class Gui {
 
-	vector<Button> buttons;
+	std::vector<Button> buttons;
 
 public:
 	Gui();
