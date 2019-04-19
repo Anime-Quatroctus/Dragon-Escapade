@@ -8,6 +8,7 @@ int main(int argc, char *args[]) {
 	game = new Game("Game", 720, 480, SDL_WINDOW_SHOWN);
 	if (!game->initializeSDL()) return -1;
 	game->setRunning(true); // Successfully initialized we are running.
+	game->initGame();
 
 	const int FPS = 60;
 	const double timeTillUpdate = (1.0/FPS);
@@ -35,7 +36,7 @@ int main(int argc, char *args[]) {
 			frames = 0;
 		}
 	}
-	game->~Game();
+	game->killSDL();
 
 	return 0;
 }

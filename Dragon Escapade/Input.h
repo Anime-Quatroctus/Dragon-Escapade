@@ -18,12 +18,14 @@ public:
 
 class Keybinding {
 
+	std::string id;
 	int keyCode;
 	bool pressed;
 
 public:
-	Keybinding(int keyCode);
+	Keybinding(std::string id, int keyCode);
 
+	std::string getID() { return id; }
 	int getCode() { return keyCode; }
 	bool isPressed() { return pressed; }
 	void setPressed(bool pressed) { this->pressed = pressed; }
@@ -34,7 +36,7 @@ class Keyboard {
 
 	std::vector<Keybinding> bindings;
 	
-	const short int timeTillType;
+	short int timeTillType;
 	// 1: lastTypeTime  2: keyCode
 	int keyTyped[2];
 
@@ -43,9 +45,6 @@ public:
 	Keyboard(std::vector<Keybinding> bindings, const short int timeTillType);
 
 	short int getTimeTillType() { return timeTillType; }
-	
-	//
-	void tick();
 
 };
 

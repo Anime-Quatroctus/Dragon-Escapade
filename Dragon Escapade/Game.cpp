@@ -1,18 +1,15 @@
 #include <SDL.h>
+#include <SDL_keycode.h>
 #include "Game.h"
+#include "States.h"
 #include <iostream>
 
-Game::Game(std::string title, int width, int height, int flags) {		
+Game::Game(std::string title, int width, int height, int flags) {
 	Game::title = title;
 	Game::width = width;
 	Game::height = height;
 	Game::flags = flags;
-}
-
-Game::~Game() {
-	SDL_DestroyWindow(Game::window);
-	SDL_DestroyRenderer(Game::renderer);
-	SDL_Quit();
+	Game::mouse = Mouse();
 }
 
 bool Game::initializeSDL() {
@@ -25,21 +22,47 @@ bool Game::initializeSDL() {
 	return window && renderer;
 }
 
+std::vector<Keybinding> Game::createAndLoadKeybindings() {
+	std::vector<Keybinding> bindings = std::vector<Keybinding>();
+	bindings.push_back(Keybinding("forward", SDLK_w));
+	return bindings;
+}
+
+void Game::initGame() {
+	currentState = new GameState(this);
+	keyboard = Keyboard(createAndLoadKeybindings(), 75);
+}
+
 void Game::handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 	switch (event.type) {
 		case SDL_QUIT: running = false;
 		break;
+		case SDL_KEYDOWN:
+			this->currentState->handleKeyInput();
+		break;
+		case SDL_KEYUP:
+
+		break;
+		case SDL_KEYMAPCHANGED:
+
+		break;
 	}
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
-	currentState.render();
+	currentState->render();
 	SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
-	currentState.update();
+	currentState->update();
+}
+
+void Game::killSDL() {
+	SDL_DestroyWindow(this->window);
+	SDL_DestroyRenderer(this->renderer);
+	SDL_Quit();
 }

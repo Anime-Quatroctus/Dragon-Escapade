@@ -1,14 +1,15 @@
 #ifndef STATE_H
 #define STATE_H
+class State;
 #include "Gui.h"
 
 class State {
 
-	Gui gui;
+	Gui *gui;
 
 public:
 	State();
-	
+
 	virtual void render() {}
 	virtual void update() {}
 	virtual void handleKeyInput() {}

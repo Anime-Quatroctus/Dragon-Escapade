@@ -20,7 +20,7 @@ public:
 	~ImageHandler();
 
 	int loadTexture(std::string path, int arr);
-
+	
 };
 
 #endif

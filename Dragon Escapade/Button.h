@@ -6,13 +6,11 @@
 class Button {
 
 	SDL_Rect destRect;
-	void (*onPress)(void *game);
 
 public:
-	Button(int x, int y, int width, int height, void (*onPress)(void *game));
-	Button(SDL_Rect destRect, void(*onPress)(void *game));
+	Button(int x, int y, int width, int height);
+	Button(SDL_Rect destRect);
 
-	virtual void press(void *game) { onPress(game); }
 	virtual void render(SDL_Renderer *renderer) {}
 	bool checkPress(Mouse mouse);
 
